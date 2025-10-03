@@ -27,7 +27,8 @@ class PackageResource extends Resource
                     ->required()
                     ->maxLength(255)
                     ->live(onBlur: true)
-                    ->afterStateUpdated(fn (string $operation, $state, Forms\Set $set) => $operation === 'create' ? $set('slug', Str::slug($state)) : null),
+                    ->afterStateUpdated(fn (string $operation, $state, Forms\Set $set) => $operation === 'create' ? $set('slug', Str::slug($state)) : null)
+                    ->columnSpanFull(),
 
                 Forms\Components\TextInput::make('slug')
                     ->required()
@@ -35,31 +36,48 @@ class PackageResource extends Resource
                     ->dehydrated()
                     ->unique(Package::class, 'slug', ignoreRecord: true),
 
-                Forms\Components\FileUpload::make('flyer_image')
-                    ->required()
-                    ->image()
-                    ->disk('public')
-                    ->directory('packages'),
-
-                Forms\Components\TextInput::make('price')
-                    ->required()
-                    ->numeric()
-                    ->prefix('IDR'),
+                Forms\Components\DatePicker::make('departure_date')
+                    ->required(),
 
                 Forms\Components\TextInput::make('duration_days')
                     ->required()
                     ->numeric()
                     ->suffix('Hari'),
 
-                Forms\Components\DatePicker::make('departure_date')
-                    ->required(),
+                Forms\Components\TextInput::make('price')
+                    ->required()
+                    ->numeric()
+                    ->prefix('IDR'),
+                
+                Forms\Components\FileUpload::make('flyer_image')
+                    ->required()
+                    ->image()
+                    ->disk('public')
+                    ->directory('packages')
+                    ->columnSpanFull(),
 
                 Forms\Components\RichEditor::make('description')
                     ->columnSpanFull(),
 
                 Forms\Components\Toggle::make('is_active')
-                    ->label('Aktifkan Paket')
                     ->required(),
+                
+                // ===== BAGIAN BARU DITAMBAHKAN DI SINI =====
+                Forms\Components\Section::make('Detail Biaya & Catatan')
+                    ->description('Isi detail untuk ditampilkan di halaman paket sebagai akordeon.')
+                    ->schema([
+                        Forms\Components\RichEditor::make('cost_includes')
+                            ->label('Biaya Sudah Termasuk')
+                            ->helperText('Gunakan fitur bullet points untuk membuat daftar.'),
+
+                        Forms\Components\RichEditor::make('cost_excludes')
+                            ->label('Biaya Belum Termasuk'),
+
+                        Forms\Components\RichEditor::make('notes')
+                            ->label('Catatan Tambahan'),
+                    ])
+                    ->collapsible()
+                    ->collapsed(), // Dibuat default tertutup agar form tidak terlalu panjang
             ]);
     }
 

@@ -18,6 +18,9 @@ class Package extends Model
         'description',
         'flyer_image',
         'is_active',
+        'cost_includes',
+        'cost_excludes',
+        'notes',
     ];
     protected $casts = [
         'gallery_images' => 'array',
