@@ -9,6 +9,11 @@
         /* Anda bisa menambahkan custom style di sini jika perlu */
         .prose { max-width: 65ch; }
     </style>
+    ...
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    ...
+    {{-- Pastikan ini ada jika Anda menggunakan @stack('styles') --}}
+    @stack('styles') 
 </head>
 <body class="bg-gray-50 text-gray-800">
 
@@ -118,6 +123,10 @@
             mobileMenu.classList.toggle('hidden');
         });
     </script>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+{{-- Ini penting agar script yang Anda tambahkan di @push('scripts') bisa terpanggil --}}
+@stack('scripts') 
 
 </body>
 </html>

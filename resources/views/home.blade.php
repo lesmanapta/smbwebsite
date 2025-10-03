@@ -166,14 +166,58 @@
 
     <section class="py-16">
         <div class="container mx-auto max-w-6xl text-center px-4">
-             <h2 class="text-3xl sm:text-4xl font-bold mb-12">Testimoni Jamaah Umroh</h2>
-             <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-                @foreach($testimonials as $testimonial)
-                <div class="rounded-lg shadow-lg overflow-hidden">
-                    <img src="{{ asset('storage/' . $testimonial->testimonial_image) }}" alt="Testimoni" class="w-full h-auto">
+            <h2 class="text-3xl sm:text-4xl font-bold mb-12">Testimoni Jamaah Umroh</h2>
+            
+            <div class="swiper testimonial-swiper">
+                <div class="swiper-wrapper">
+                    @foreach($testimonials as $testimonial)
+                    <div class="swiper-slide">
+                        <div class="rounded-lg shadow-lg overflow-hidden">
+                            <img src="{{ asset('storage/' . $testimonial->testimonial_image) }}" alt="Testimoni" class="w-full h-auto object-cover">
+                        </div>
+                    </div>
+                    @endforeach
                 </div>
-                @endforeach
-             </div>
+                <div class="swiper-pagination mt-8 relative"></div>
+            </div>
+    
         </div>
     </section>
+
+@push('scripts')
+<script>
+    var swiper = new Swiper(".testimonial-swiper", {
+        // Mengatur berapa slide yang terlihat per view
+        slidesPerView: 2, // Default untuk layar kecil
+        spaceBetween: 10, // Jarak antar slide
+        // Responsif: mengubah jumlah slide berdasarkan lebar layar
+        breakpoints: {
+            640: { // Ketika lebar layar >= 640px
+                slidesPerView: 3,
+                spaceBetween: 20,
+            },
+            768: { // Ketika lebar layar >= 768px
+                slidesPerView: 4,
+                spaceBetween: 30,
+            },
+            1024: { // Ketika lebar layar >= 1024px
+                slidesPerView: 5,
+                spaceBetween: 30,
+            },
+        },
+        // Membuat slider berputar terus menerus
+        loop: true,
+        // Autoplay (geser otomatis)
+        autoplay: {
+            delay: 2500, // Geser setiap 2.5 detik
+            disableOnInteraction: false, // Lanjutkan autoplay setelah user interaksi
+        },
+        // Pagination (titik-titik di bawah slider)
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true, // Pagination bisa diklik
+        },
+    });
+</script>
+@endpush
 @endsection
