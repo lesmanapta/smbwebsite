@@ -9,9 +9,9 @@
         /* Anda bisa menambahkan custom style di sini jika perlu */
         .prose { max-width: 65ch; }
     </style>
-    ...
+    {{-- ... --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    ...
+    {{-- ... --}}
     {{-- Pastikan ini ada jika Anda menggunakan @stack('styles') --}}
     @stack('styles') 
 </head>
@@ -19,11 +19,15 @@
 
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <nav class="container mx-auto max-w-6xl p-4 flex justify-between items-center">
-            <a href="{{ url('/') }}" class="text-2xl font-bold text-sky-700">MMB Travel</a>
+            <a href="{{ url('/') }}" class="flex items-center gap-x-3">
+                <img src="{{ asset('LogoSMB.jpg') }}" alt="MMB Travel Logo" class="h-10 w-auto">
+                <span class="text-2xl font-bold text-sky-700">SMB Travel</span>
+            </a>
             <div class="hidden md:flex items-center space-x-4">
                 <a href="{{ url('/') }}" class="text-gray-600 hover:text-sky-700 px-3">Beranda</a>
                 <a href="{{ route('packages.index') }}" class="text-gray-600 hover:text-sky-700 px-3">Paket Umroh</a>
                 <a href="#" class="text-gray-600 hover:text-sky-700 px-3">Haji Khusus</a>
+                <a href="#" class="text-gray-600 hover:text-sky-700 px-3">Artikel</a>
                 <a href="{{ route('consultation.index') }}" class="bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">Konsultasi Gratis</a>
             </div>
             <div class="md:hidden">
